@@ -58,7 +58,7 @@ entries.each do |entry|
 	duration = entry['duration'].to_i
 	desc = entry['description'] || ''
 	desc += " #{entry['project']['name']}" if entry['project'] and entry['project']['name']
-	jira_key = $1 if desc =~ /([A-Z]+-\d+)/
+	jira_key = entry['tag_names'][0] if entry['tag_names'].length && entry['tag_names'][0] =~ /([A-Z]+-\d+)/
 
 	if imported.include?(id)
 		puts "Skip #{jira_key} '#{desc}' as it was already imported"
